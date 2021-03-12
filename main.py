@@ -6,7 +6,7 @@ import time
 
 screen = Screen()
 screen.setup(width=600, height=600)
-screen.bgcolor("green")
+screen.bgcolor("black")
 screen.title("Camy's Snake Game")
 screen.tracer(0)
 
@@ -29,12 +29,15 @@ while game_is_on:
         food.refresh()
         snake.extend()
         score.gain_point()
+        score.update_scoreboard()
     if snake.face.xcor() > 280 or snake.face.xcor() < -280 or snake.face.ycor() > 280 or snake.face.ycor() < -280:
-        game_is_on = False
-        score.game_over()
+        score.reset()
+        score.update_scoreboard()
+        snake.reset()
     for segment in snake.segments[1:]:
         if snake.face.distance(segment) < 10:
-            game_is_on = False
-            score.game_over()
+            score.reset()
+            score.update_scoreboard()
+            snake.reset()
 
 screen.exitonclick()
